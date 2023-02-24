@@ -24,7 +24,7 @@
 .entrada-texto {
     a {
         color: $negro;
-        margin-top: 10rem;
+        margin-top: 2rem;
         display: block;
         @include tablet {
             margin-top: 0;
@@ -41,9 +41,10 @@
             background-color: $verde;
             margin-top: 1rem;
         }
-        span {
-            color: $amarillo;
-        }
+       
+    }
+    span {
+        color: $amarillo;
     }
     
 }
