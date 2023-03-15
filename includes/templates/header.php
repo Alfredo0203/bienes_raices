@@ -13,15 +13,15 @@
         <div class="contenedor contenido-header">
             <div class="barra">
                 <a href="/bienes_raices/index.php">
-                    <img src="build/img/logo.svg" alt="logo">
+                    <img src="/bienes_raices/build/img/logo.svg" alt="logo">
                 </a>
 
                 <div class="mobile-menu">
-                    <img src="build/img/barras.svg" alt="icono mrnu responsivo">
+                    <img src="/bienes_raices/build/img/barras.svg" alt="icono mrnu responsivo">
                 </div>
 
                 <div class="derecha">
-                    <img class="dark-mode-boton" src="build/img/dark-mode.svg" alt="">
+                    <img class="dark-mode-boton" src="/bienes_raices/build/img/dark-mode.svg" alt="">
                     <nav class="navegacion">
                         <a href="about.php">About us</a>
                         <a href="ad.php">Ad</a>

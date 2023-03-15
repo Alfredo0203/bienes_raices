@@ -11,6 +11,6 @@
         <p class="copyright">All rights reserved <?php echo date('Y'); ?> &copy;</p>
     </footer>
 
-    <script src="build/js/bundle.min.js"></script>
+    <script src="/bienes_raices/build/js/bundle.min.js"></script>
 </body>
 </html>
