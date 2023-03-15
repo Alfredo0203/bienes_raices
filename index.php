@@ -149,14 +149,14 @@ include './includes/templates/header.php';
         </div>
 
         <div class="alinear-derecha">
-            <a href="ad.html" class="boton-verde">See all</a>
+            <a href="ad.php" class="boton-verde">See all</a>
         </div>
     </section>
 
     <section class="imagen-contacto">
         <h2>Find your dreamed house</h2>
         <p>Fill out the contact form and a representative will contact you</p>
-        <a href="contact.html" class="boton-amarillo">Contact Us    </a>
+        <a href="contact.php" class="boton-amarillo">Contact Us    </a>
     </section>
 
     <div class="contenedor seccion seccion-inferior">
@@ -223,19 +223,7 @@ include './includes/templates/header.php';
     </div>
 
     
-
-    <footer class="footer seccion">
-        <div class="contenedor contenido-footer">
-            <nav class="navegacion">
-                <a href="about.html">About us</a>
-                <a href="ad.html">Ad</a>
-                <a href="blog.html">Blog</a>                      
-                <a href="contact.html">Contact</a>
-            </nav>
-        </div>
-        <p class="copyright">All rights reserved 2023 &copy;</p>
-    </footer>
-
-    <script src="build/js/bundle.min.js"></script>
-</body>
-</html>
+    <?php
+include './includes/templates/footer.php';
+?>
+    
