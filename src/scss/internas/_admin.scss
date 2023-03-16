@@ -1,5 +1,5 @@
 .alerta {
-    padding: .5rerm;
+    padding: .5rem;
     text-align: center;
     color: $blanco;
     font-weight: $bold;
@@ -9,4 +9,9 @@
       background-color: $rojo;  
 
     }
+
+    &.exito {
+      background-color: $verde;
+    }
+    
 }

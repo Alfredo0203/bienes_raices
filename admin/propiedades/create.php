@@ -100,7 +100,7 @@ $resultado = mysqli_query($db, $valores);
 
 if($resultado) {
     //REDIRECCIONAR
-    header('Location: /bienes_raices/admin');
+    header('Location: /bienes_raices/admin?resultado=1');
 
 
 }
