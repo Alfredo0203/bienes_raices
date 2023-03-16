@@ -2,6 +2,16 @@
 require '../includes/funciones.php';
 $resultado = $_GET['resultado']?? null;
 
+//Importar la conexion
+
+    require('../includes/config/database.php');
+    $db = conectarBD();
+
+//Escribir el querry
+$propiedadesDB = 'SELECT * FROM propiedades';
+//Condultar la BD
+$propiedadesDB = mysqli_query($db,$propiedadesDB);
+
 incluirTemplate('header');
 ?>
 
@@ -26,21 +36,26 @@ incluirTemplate('header');
                 </tr>
             </thead>
 
-            <tbody>
+            
+            <tbody> <!-- Mostrar Resultados-->
+            <?php while($propiedad = mysqli_fetch_assoc($propiedadesDB)) :?>
                 <tr>
-                    <td>1</td>
-                    <td>Casa en la playa</td>
-                    <td><img src="../../bienes_raices/src/img/anuncio3.jpg" alt="anuncio" class="img-table"></td>
-                    <td>$20000</td>
+                    <td><?php echo $propiedad['id'] ?></td>
+                    <td><?php echo $propiedad['titulo'] ?></td>
+                    <td><img src="/bienes_raices/imagenes/<?php echo $propiedad['imagen']?>" alt="anuncio" class="img-table"></td>
+                    <td>$<?php echo $propiedad['precio'] ?></td>
                     <td>
                         <a href="#" class="boton-amarillo-block">Update</a>
                         <a href="#" class="boton-rojo-block">Delete</a>
                     </td>
                 </tr>
+                <?php endwhile; ?>
             </tbody>
         </table>
     </main>
 
     <?php
+
+    mysqli_close($db);
 incluirTemplate('footer');
 ?>

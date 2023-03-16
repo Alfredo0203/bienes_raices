@@ -86,7 +86,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //Generar un nombre unico para img
-    $nombreImg = md5(uniqid(rand(), true)) . 'jpg';
+    $nombreImg = md5(uniqid(rand(), true)) . '.jpg';
     var_dump($nombreImg);
     //Guardar imagen en la carpeta
     move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
