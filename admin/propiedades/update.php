@@ -92,20 +92,30 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
    if(empty($errores)) {
 
     // //CREAR CARPETA  PARA GUARDAR ARCHIVOS
-    // $carpetaImg = '../../imagenes/';
-    // if(!is_dir($carpetaImg)) {
-    //     mkdir($carpetaImg);    
-    // }
+    $carpetaImg = '../../imagenes/';
+    if(!is_dir($carpetaImg)) {
+        mkdir($carpetaImg);    
+    }
 
-    // //Generar un nombre unico para img
-    // $nombreImg = md5(uniqid(rand(), true)) . '.jpg';
-    // var_dump($nombreImg);
+    $nombreImg = '';
+    if($imagen['name']) {
+        unlink($carpetaImg . $propiedad['imagen']);
+          // //Generar un nombre unico para img
+    $nombreImg = md5(uniqid(rand(), true)) . '.jpg';
+  
     // //Guardar imagen en la carpeta
-    // move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
+    move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
+    }
+
+    else {
+        $nombreImg = $propiedad['imagen'];
+    }
+
+  
 
 
      //INSERTAR EN LA BD
-     $valores = "UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', descripcion = '{$descripcion}',
+     $valores = "UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', imagen = '{$nombreImg}', descripcion = '{$descripcion}',
       habitaciones ={$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedorId = {$vendedorId} WHERE id =  {$id}";
 $resultado = mysqli_query($db, $valores);
 
