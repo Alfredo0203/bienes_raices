@@ -45,7 +45,7 @@ incluirTemplate('header');
                     <td><img src="/bienes_raices/imagenes/<?php echo $propiedad['imagen']?>" alt="anuncio" class="img-table"></td>
                     <td>$<?php echo $propiedad['precio'] ?></td>
                     <td>
-                        <a href="#" class="boton-amarillo-block">Update</a>
+                        <a href="/bienes_raices/admin/propiedades/update.php?id=<?php echo $propiedad['id']?>" class="boton-amarillo-block">Update</a>
                         <a href="#" class="boton-rojo-block">Delete</a>
                     </td>
                 </tr>
