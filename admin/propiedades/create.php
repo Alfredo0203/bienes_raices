@@ -18,6 +18,14 @@ $vendedorId = '';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
    
+    // echo '<pre>';
+    // var_dump($_POST);
+    // echo '</pre>';
+
+    // echo '<pre>';
+    // var_dump($_FILES);
+    // echo '</pre>';
+    // exit;
 
     $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
     $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -27,6 +35,10 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
     $vendedorId = mysqli_real_escape_string($db, $_POST['vendedorId']);
     $creado = mysqli_real_escape_string($db, date('y/m/d'));
+
+    $imagen = $_FILES['imagen'];
+   
+ 
 
     if(!$titulo) {
         $errores[] = 'The title is required';
@@ -53,13 +65,36 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errores[] = 'Choose a seller';
     }
 
+    if(!$imagen['name'] || $imagen['error']) {
+        $errores[] = 'Image required';  
+    }
+
+    $medida = 1000 * 1000;
+    if($imagen['size'] > $medida) {
+        $errores[] = 'File is too long';
+    }
+    
+
    // Validar datos antes de insertar
    //Verificar si el arreglo de errores esta vacio
    if(empty($errores)) {
 
+    //CREAR CARPETA  PARA GUARDAR ARCHIVOS
+    $carpetaImg = '../../imagenes/';
+    if(!is_dir($carpetaImg)) {
+        mkdir($carpetaImg);    
+    }
+
+    //Generar un nombre unico para img
+    $nombreImg = md5(uniqid(rand(), true)) . 'jpg';
+    var_dump($nombreImg);
+    //Guardar imagen en la carpeta
+    move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
+
+
      //INSERTAR EN LA BD
-     $valores = "INSERT INTO propiedades(titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) 
-     VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
+     $valores = "INSERT INTO propiedades(titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) 
+     VALUES ('$titulo', '$precio', '$nombreImg', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
 
 $resultado = mysqli_query($db, $valores);
 
@@ -94,7 +129,7 @@ incluirTemplate('header');
             </div>
             <?php endforeach; ?>
 
-        <form class="formulario" method="post" action="../../admin/propiedades/create.php">
+        <form class="formulario" method="post" action="../../admin/propiedades/create.php" enctype="multipart/form-data">
             <fieldset>
 
                 <legend>General Information</legend>
