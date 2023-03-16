@@ -17,10 +17,6 @@ $consulta= "SELECT * from propiedades WHERE id =" .$id;
 $resultado = mysqli_query($db, $consulta);
 $propiedad = mysqli_fetch_assoc($resultado);
 
-echo '<pre>';
-var_dump($propiedad);
-echo '</pre>';
-
 
 //Obtener vendedores desde la DB
 $listaVendedores = "SELECT * from vendedores";
@@ -85,10 +81,6 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errores[] = 'Choose a seller';
     }
 
-    if(!$imagen['name'] || $imagen['error']) {
-        $errores[] = 'Image required';  
-    }
-
     $medida = 1000 * 1000;
     if($imagen['size'] > $medida) {
         $errores[] = 'File is too long';
@@ -99,28 +91,29 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
    //Verificar si el arreglo de errores esta vacio
    if(empty($errores)) {
 
-    //CREAR CARPETA  PARA GUARDAR ARCHIVOS
-    $carpetaImg = '../../imagenes/';
-    if(!is_dir($carpetaImg)) {
-        mkdir($carpetaImg);    
-    }
+    // //CREAR CARPETA  PARA GUARDAR ARCHIVOS
+    // $carpetaImg = '../../imagenes/';
+    // if(!is_dir($carpetaImg)) {
+    //     mkdir($carpetaImg);    
+    // }
 
-    //Generar un nombre unico para img
-    $nombreImg = md5(uniqid(rand(), true)) . '.jpg';
-    var_dump($nombreImg);
-    //Guardar imagen en la carpeta
-    move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
+    // //Generar un nombre unico para img
+    // $nombreImg = md5(uniqid(rand(), true)) . '.jpg';
+    // var_dump($nombreImg);
+    // //Guardar imagen en la carpeta
+    // move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
 
 
      //INSERTAR EN LA BD
-     $valores = "INSERT INTO propiedades(titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) 
-     VALUES ('$titulo', '$precio', '$nombreImg', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
-
+     $valores = "UPDATE propiedades SET titulo = '{$titulo}', precio = '{$precio}', descripcion = '{$descripcion}',
+      habitaciones ={$habitaciones}, wc = {$wc}, estacionamiento = {$estacionamiento}, vendedorId = {$vendedorId} WHERE id =  {$id}";
 $resultado = mysqli_query($db, $valores);
+
+
 
 if($resultado) {
     //REDIRECCIONAR
-    header('Location: /bienes_raices/admin?resultado=1');
+    header('Location: /bienes_raices/admin?resultado=2');
 
 
 }
@@ -140,7 +133,7 @@ incluirTemplate('header');
 
 
     <main class="contenedor seccion">
-        <h1>Create</h1>
+        <h1>Updating</h1>
         <a href="../" class="boton boton-verde">Return</a>
 
         <?php foreach($errores as $error):?>
@@ -149,7 +142,7 @@ incluirTemplate('header');
             </div>
             <?php endforeach; ?>
 
-        <form class="formulario" method="post" action="../../admin/propiedades/create.php" enctype="multipart/form-data">
+        <form class="formulario" method="post" enctype="multipart/form-data">
             <fieldset>
 
                 <legend>General Information</legend>

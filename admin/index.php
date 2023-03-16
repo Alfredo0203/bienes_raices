@@ -18,11 +18,11 @@ incluirTemplate('header');
 
     <main class="contenedor seccion">
         <h1>Real estate manager</h1>
-        <?php if($resultado) {?>
-            <p class="alerta exito">
-                Successfully Save
-        </p>
-            <?php } ?>
+        <?php if($resultado == 1) :?>
+            <p class="alerta exito"> Successfully Save </p>
+            <?php elseif($resultado==2) : ?>
+                <p class="alerta exito"> Successfully Updated </p>
+            <?php endif ?>
         <a href="../admin/propiedades/create.php" class="boton boton-verde">Nueva Propiedad</a>
 
         <table class="propiedades">
