@@ -3,6 +3,10 @@ require '../../includes/funciones.php';
 require '../../includes/config/database.php';
 
 $db = conectarBD();
+//Obtener vendedores desde la DB
+$listaVendedores = "SELECT * from vendedores";
+$listaVendedores = mysqli_query($db, $listaVendedores);
+
 $errores = [];
 $titulo = '';
 $precio = '';
@@ -15,13 +19,14 @@ $vendedorId = '';
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
    
 
-    $titulo = $_POST['titulo'];
-    $precio = $_POST['precio'];
-    $descripcion = $_POST['descripcion'];
-    $habitaciones = $_POST['habitaciones'];
-    $wc = $_POST['wc'];
-    $estacionamiento = $_POST['estacionamiento'];
-    $vendedorId = $_POST['vendedorId'];
+    $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
+    $precio = mysqli_real_escape_string($db, $_POST['precio']);
+    $descripcion = mysqli_real_escape_string($db, $_POST['descripcion']);
+    $habitaciones = mysqli_real_escape_string($db, $_POST['habitaciones']);
+    $wc = mysqli_real_escape_string($db, $_POST['wc']);
+    $estacionamiento = mysqli_real_escape_string($db, $_POST['estacionamiento']);
+    $vendedorId = mysqli_real_escape_string($db, $_POST['vendedorId']);
+    $creado = mysqli_real_escape_string($db, date('y/m/d'));
 
     if(!$titulo) {
         $errores[] = 'The title is required';
@@ -31,7 +36,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
         $errores[] = 'The price id required';
     }
 
-    if(strlen($descripcion) < 50) {
+    if(strlen($descripcion) < 15) {
         $errores[] = 'The Description is required and must have at least 50 letters';
     }
 
@@ -53,13 +58,16 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
    if(empty($errores)) {
 
      //INSERTAR EN LA BD
-     $valores = "INSERT INTO propiedades(titulo, precio, descripcion, habitaciones, wc, estacionamiento, vendedorId) 
-     VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$vendedorId')";
+     $valores = "INSERT INTO propiedades(titulo, precio, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) 
+     VALUES ('$titulo', '$precio', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
 
 $resultado = mysqli_query($db, $valores);
 
 if($resultado) {
-    echo 'Data inserted succesfully';
+    //REDIRECCIONAR
+    header('Location: /bienes_raices/admin');
+
+
 }
 }
 
@@ -121,8 +129,12 @@ incluirTemplate('header');
                 <legend>Seller</legend>
                 <select name="vendedorId" id="vendedor">
                     <option value="">--Choose--</option>
-                    <option value="1" >Alfredo</option>
-                    <option value="2">Alejandra</option>
+                    <?php while($vendedor = mysqli_fetch_assoc($listaVendedores)) { ?>
+                        <option  value="<?php echo $vendedor['id'];?>" 
+                        <?php echo $vendedorId === $vendedor['id']? 'selected' : ''?> >
+                        <?php echo $vendedor['nombre'] . ' ' . $vendedor['apellido'] ?>
+                    </option>
+                        <?php }?>
                 </select>
             </fieldset>
 
