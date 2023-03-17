@@ -4,13 +4,42 @@ $resultado = $_GET['resultado']?? null;
 
 //Importar la conexion
 
-    require('../includes/config/database.php');
-    $db = conectarBD();
+require('../includes/config/database.php');
+$db = conectarBD();
 
 //Escribir el querry
 $propiedadesDB = 'SELECT * FROM propiedades';
 //Condultar la BD
-$propiedadesDB = mysqli_query($db,$propiedadesDB);
+$propiedadesDB = mysqli_query($db, $propiedadesDB);
+
+
+if($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $id = $_POST['id'];
+    $id = filter_var($id, FILTER_VALIDATE_INT);
+
+    if($id) {
+        
+        // Eliminar archivo
+        $query = "SELECT imagen FROM propiedades WHERE id = {$id}";
+        $resultado = mysqli_query($db, $query);
+        $propiedad = mysqli_fetch_assoc($resultado);
+       
+        unlink('../imagenes/'.$propiedad['imagen']);
+        //Eliminar la propiedad
+        $query = "DELETE FROM propiedades WHERE id = {$id}";
+        $rersultado = mysqli_query($db, $query);
+
+        if($rersultado) {
+            header('Location: /bienes_raices/admin?resultado=3');
+        }
+
+       
+        echo $query;
+    }
+    
+}
+
+
 
 incluirTemplate('header');
 ?>
@@ -22,8 +51,12 @@ incluirTemplate('header');
             <p class="alerta exito"> Successfully Save </p>
             <?php elseif($resultado==2) : ?>
                 <p class="alerta exito"> Successfully Updated </p>
+
+                <?php elseif($resultado==3) : ?>
+                <p class="alerta error"> Successfully Deleted</p>
             <?php endif ?>
-        <a href="../admin/propiedades/create.php" class="boton boton-verde">Nueva Propiedad</a>
+            
+        <a href="../admin/propiedades/create.php" class="boton boton-verde">New Property</a>
 
         <table class="propiedades">
             <thead>
@@ -46,7 +79,10 @@ incluirTemplate('header');
                     <td>$<?php echo $propiedad['precio'] ?></td>
                     <td>
                         <a href="/bienes_raices/admin/propiedades/update.php?id=<?php echo $propiedad['id']?>" class="boton-amarillo-block">Update</a>
-                        <a href="#" class="boton-rojo-block">Delete</a>
+                        <form method="POST" class="w-100">
+                            <input type="hidden" name="id" value="<?php echo $propiedad['id']?>">
+                            <input type="submit" class="boton-rojo-block" value="Delete">
+                        </form> 
                     </td>
                 </tr>
                 <?php endwhile; ?>
