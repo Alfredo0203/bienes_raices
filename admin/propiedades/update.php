@@ -166,7 +166,7 @@ incluirTemplate('header');
                 <label for="imagen">Image: </label>
                 <input type="file" id="imagen" name="imagen" accept="image/jpeg, image/png">
 
-                <img src="/bienes_raices/imagenes/<?php echo $imagen?>" class="img-table" alt="">
+                <img src="/bienes_raices/imagenes/<?php echo $imagen?>" class="img-small" alt="">
 
                 <label for="descripcion">Description:</label>
                 <Textarea name="descripcion"><?php echo $descripcion ?></Textarea>

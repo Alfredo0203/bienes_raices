@@ -56,7 +56,7 @@ incluirTemplate('header');
                 <p class="alerta error"> Successfully Deleted</p>
             <?php endif ?>
             
-        <a href="../admin/propiedades/create.php" class="boton boton-verde">New Property</a>
+        <a href="../admin/propiedades/create.php" class="boton-add">New Property</a>
 
         <table class="propiedades">
             <thead>
@@ -78,10 +78,10 @@ incluirTemplate('header');
                     <td><img src="/bienes_raices/imagenes/<?php echo $propiedad['imagen']?>" alt="anuncio" class="img-table"></td>
                     <td>$<?php echo $propiedad['precio'] ?></td>
                     <td>
-                        <a href="/bienes_raices/admin/propiedades/update.php?id=<?php echo $propiedad['id']?>" class="boton-amarillo-block">Update</a>
+                        <a href="/bienes_raices/admin/propiedades/update.php?id=<?php echo $propiedad['id']?>" class="btn-accion boton-acciones">Update</a>
                         <form method="POST" class="w-100">
                             <input type="hidden" name="id" value="<?php echo $propiedad['id']?>">
-                            <input type="submit" class="boton-rojo-block" value="Delete">
+                            <input type="submit" class="btn-accion boton-delete" value="Delete">
                         </form> 
                     </td>
                 </tr>

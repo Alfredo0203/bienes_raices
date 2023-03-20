@@ -20,21 +20,36 @@ table.propiedades {
   margin-top: 4rem;
   width: 100%;
   border-spacing: 0;
+  text-align: center;
+
 
   thead {
-    background-color: $verde;
+    background-color: $grisOscuro;
 
     th {
       color: $blanco;
       padding: 2rem;
     }
-  }
 
+   
+  }
+  .img-table {
+    width: 15rem;
+    margin: 0 auto;
+  }
+  tr, td, th{
+    border: $gris 2px solid;
+
+  }
   
 }
 
-.img-table {
-  width: 10rem;
+
+
+.img-small {
+  width: 20rem;
 }
+
+
 
 

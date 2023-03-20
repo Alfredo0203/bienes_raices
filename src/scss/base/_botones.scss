@@ -9,8 +9,22 @@
     @include boton($verde, inline-block); 
 }
 
-.boton-rojo-block {
-    @include boton($rojo, block);
-    width: 100%;
+.boton-acciones {
+    @include boton($amarillo, block);
+
+   
+}
+
+.boton-add {
+    @include boton($amarillo, inline-block);
+}
+.btn-accion {
+    width: 85%;
+    border-radius: 10px;
+    margin: 2rem
+}
+.boton-delete  {
+        @include boton(rgb(57, 52, 52), block);
+       
 }
 
