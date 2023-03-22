@@ -1,5 +1,14 @@
 <?php
 require '../includes/funciones.php';
+
+if(!isset($_SESSION)){
+    session_start();
+}
+$auth = estaAutenticado();
+if(!$auth) {
+header('Location: /bienes_raices/');
+}
+
 $resultado = $_GET['resultado']?? null;
 
 //Importar la conexion

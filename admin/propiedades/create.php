@@ -2,6 +2,12 @@
 require '../../includes/funciones.php';
 require '../../includes/config/database.php';
 
+session_start();
+$auth = estaAutenticado();
+if(!$auth) {
+header('Location: /bienes_raices/');
+}
+
 $db = conectarBD();
 //Obtener vendedores desde la DB
 $listaVendedores = "SELECT * from vendedores";

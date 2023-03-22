@@ -33,6 +33,12 @@ if(empty($errores)) {
         $auth = password_verify($password, $usuario['pass']);
         if($auth) {
             //EL USUARIO ESTA AUTENTIFICADO
+            session_start();
+            //LLENAR ELAREGLO DE LA SESION
+            $_SESSION['usuario'] = $usuario['email'];
+            $_SESSION['login'] = true;
+
+            header("Location: /bienes_raices/admin");
 
         }
         else {
