@@ -1,7 +1,7 @@
 <?php 
 
 //IMPORTAR LA CONEXION
-require 'includes/config/database.php';
+require 'includes/config/app.php';
 $database = conectarBD();
 
 //DATOS

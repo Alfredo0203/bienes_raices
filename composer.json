@@ -1,0 +1,17 @@
+{
+    "name": "lopez/bienes_raices",
+    "description": "Composer con POO",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "App\\": "./clases"
+        }
+    },
+    "authors": [
+        {
+            "name": "Alfredo Torres",
+            "email": "alfredotorres.niu@gmail.com"
+        }
+    ],
+    "require": {}
+}

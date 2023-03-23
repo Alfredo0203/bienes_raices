@@ -1,5 +1,5 @@
 <?php
-require '../includes/funciones.php';
+require '../../bienes_raices/includes/app.php';
 
 if(!isset($_SESSION)){
     session_start();
@@ -13,7 +13,6 @@ $resultado = $_GET['resultado']?? null;
 
 //Importar la conexion
 
-require('../includes/config/database.php');
 $db = conectarBD();
 
 //Escribir el querry

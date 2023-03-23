@@ -1,8 +1,8 @@
 <?php
-require 'includes/funciones.php';
+require 'includes/app.php';
 incluirTemplate('header');
 
-require 'includes/config/database.php';
+
 
 $db = conectarBD();
 

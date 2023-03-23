@@ -1,12 +1,9 @@
 <?php
-require '../../includes/funciones.php';
-require '../../includes/config/database.php';
+require '../../includes/app.php';
+use App\Propiedad;
 
-session_start();
-$auth = estaAutenticado();
-if(!$auth) {
-header('Location: /bienes_raices/');
-}
+estaAutenticado();
+
 
 $db = conectarBD();
 //Obtener vendedores desde la DB
@@ -24,14 +21,10 @@ $vendedorId = '';
 
 if($_SERVER['REQUEST_METHOD'] == 'POST') {
    
-    // echo '<pre>';
-    // var_dump($_POST);
-    // echo '</pre>';
+    $propiedad = new Propiedad($_POST);
+    $propiedad->guardar();
+    debugear($propiedad);
 
-    // echo '<pre>';
-    // var_dump($_FILES);
-    // echo '</pre>';
-    // exit;
 
     $titulo = mysqli_real_escape_string($db, $_POST['titulo']);
     $precio = mysqli_real_escape_string($db, $_POST['precio']);
@@ -98,10 +91,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST') {
     move_uploaded_file($imagen['tmp_name'], $carpetaImg. $nombreImg);
 
 
-     //INSERTAR EN LA BD
-     $valores = "INSERT INTO propiedades(titulo, precio, imagen, descripcion, habitaciones, wc, estacionamiento, creado, vendedorId) 
-     VALUES ('$titulo', '$precio', '$nombreImg', '$descripcion', '$habitaciones', '$wc', '$estacionamiento', '$creado', '$vendedorId')";
-
+   
 $resultado = mysqli_query($db, $valores);
 
 if($resultado) {
